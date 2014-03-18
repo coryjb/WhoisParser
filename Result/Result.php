@@ -269,11 +269,13 @@ class Result extends AbstractResult
                         }
                     }
                     
-                    if (! isset($this->contacts->{$this->lastHandle}[$this->lastId])) {
+                    if (! isset($this->contacts->{$this->lastHandle}[$this->lastId]) && $this->lastHandle) {
                         $this->contacts->{$this->lastHandle}[$this->lastId] = new \Novutec\WhoisParser\Contact();
                     }
                     
-                    $this->contacts->{$this->lastHandle}[$this->lastId]->$type = $value;
+					if ($this->lastHandle) {
+						$this->contacts->{$this->lastHandle}[$this->lastId]->$type = $value;
+					}
                 } else {
                     // if last element of target is reached we need to add value
                     if ($key === sizeof($targetArray) - 1) {
